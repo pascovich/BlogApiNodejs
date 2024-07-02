@@ -82,6 +82,20 @@ export async function updateUser(req, res) {
     return res.send({ error: error.message, user: {} });
   }
 }
+export async function findUser(req, res) {
+  try {
+    let user = await UserModel.findById(req.params.id);
+    // const userId = req.params.id;
+    if (!user) {
+      return res.status(404).send({ message: "User not found" });
+    } else {
+      return res.status(200).send({ user });
+    }
+    // return res.send(userId._id);
+  } catch (error) {
+    return res.status(500).send({ error: error.message, user: {} });
+  }
+}
 export async function deleteUser(req, res) {
   try {
     let userId = await UserModel.findById(req.params.id);
