@@ -25,17 +25,21 @@ export async function signup(req, res) {
           username,
           password: passwords,
         });
-        return res.send({
+        return res.status(200).send({
           error: "",
           message: "user created successfully",
           user,
         });
       }
-      return res.send({ error: "fields are not correct", user: {} });
+      return res
+        .status(422)
+        .send({ message: "fields are not correct", user: {} });
     }
-    return res.send({ error: "all fields is required", user: {} });
+    return res
+      .status(422)
+      .send({ message: "all fields is required", user: {} });
   } catch (error) {
-    return res.send({ error: error.message, user: {} });
+    return resstatus(500).send({ message: error.message, user: {} });
   }
 }
 
@@ -79,8 +83,8 @@ export async function update(req, res) {
 export async function getUser(req, res) {
   try {
     const users = await UserModel.find();
-    return res.send({ users });
+    return res.status(200).send({ users });
   } catch (error) {
-    return res.send({ error });
+    return res.status(500).send({ message: error.message });
   }
 }

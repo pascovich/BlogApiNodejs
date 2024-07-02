@@ -2,6 +2,7 @@ import express from "express";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
 import userRoute from "./route/userRoute.js";
+import postRoute from "./route/postRoute.js";
 
 // read environment
 dotenv.config();
@@ -17,8 +18,8 @@ app.use(express.json());
 
 // database connection
 mongoose.connect(process.env.MONGO_URI, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
+  //   useNewUrlParser: true,
+  //   useUnifiedTopology: true,
 });
 // define the routes
 app.get("/", (req, res) => {
@@ -27,6 +28,7 @@ app.get("/", (req, res) => {
 
 // use our routes
 app.use("/user", userRoute);
+app.use("/post", postRoute);
 
 // config the server to listen
 app.listen(port, () => {

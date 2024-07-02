@@ -8,8 +8,8 @@ const { Schema } = mongoose;
 const favoriSchema = Schema(
   {
     createdAt: { type: Date, default: Date.now },
-    authorId: { type: Number },
-    postId: { type: Number },
+    authorId: { type: mongoose.Schema.Types.ObjectId, ref: "user" },
+    postId: { type: mongoose.Schema.Types.ObjectId, ref: "posts" },
   },
   { timestamps: true }
 );

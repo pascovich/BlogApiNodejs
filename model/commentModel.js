@@ -11,8 +11,8 @@ const commentSchema = Schema(
     content: { type: Text, min: 5 },
     createdAt: { type: Date, default: Date.now },
     updatedAt: { type: Date, default: null },
-    authorId: { type: Number },
-    postId: { type: Number },
+    authorId: { type: mongoose.Schema.Types.ObjectId, ref: "user" },
+    postId: { type: mongoose.Schema.Types.ObjectId, ref: "posts" },
   },
   { timestamps: true }
 );

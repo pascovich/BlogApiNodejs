@@ -7,11 +7,12 @@ const { Schema } = mongoose;
 
 const postSchema = Schema(
   {
-    title: { type: String, min: 2 },
-    content: { type: Text, min: 5 },
+    title: { type: String, minlength: 2 },
+    content: { type: String, minlength: 5 },
+    image: { type: String },
     createdAt: { type: Date, default: Date.now },
     updatedAt: { type: Date, default: null },
-    authorId: { type: Number },
+    authorId: { type: mongoose.Schema.Types.ObjectId, ref: "user" },
   },
   { timestamps: true }
 );
