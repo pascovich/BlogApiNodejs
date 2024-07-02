@@ -26,9 +26,9 @@ export async function create(req, res) {
   }
 }
 
-export async function getPosts() {
+export async function getPosts(req, res) {
   try {
-    const posts = await postModel.find().populate("authorId", "username");
+    const posts = await postModel.find().populate("authorId", "nom");
     return res
       .status(200)
       .send({ message: "posts fetched successfully", posts });
