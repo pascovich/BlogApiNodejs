@@ -1,0 +1,26 @@
+{
+  "name": "blogapi",
+  "version": "1.0.0",
+  "description": "api for a small blog apps",
+  "type": "module",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pascovich/BlogApiNodejs.git"
+  },
+  "author": "pascovich",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/pascovich/BlogApiNodejs/issues"
+  },
+  "homepage": "https://github.com/pascovich/BlogApiNodejs#readme",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "mongoose": "^8.4.4"
+  }
+}
