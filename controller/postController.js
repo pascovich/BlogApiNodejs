@@ -138,3 +138,89 @@ export async function getPostWithAuthorsAndLikes(req, res) {
     res.status(500).json({ message: error.message });
   }
 }
+
+export async function getPostWithComments(req, res) {
+  try {
+    const postId = req.params.id;
+
+    const post = await postModel.aggregate([
+      { $match: { _id: new mongoose.Types.ObjectId(postId) } },
+      // {
+      //   $lookup: {
+      //     from: "users",
+      //     localField: "authorId",
+      //     foreignField: "_id",
+      //     as: "authors",
+      //   },
+      // },
+      // {
+      //   $lookup: {
+      //     from: "users",
+      //     localField: "_id",
+      //     foreignField: "authorId",
+      //     // select: "nom",
+      //     as: "authors",
+      //   },
+      // },
+
+      {
+        $lookup: {
+          from: "comments",
+          localField: "_id",
+          foreignField: "postId",
+          as: "comments",
+        },
+      },
+      { $unwind: "$comments" },
+      {
+        $lookup: {
+          from: "users",
+          localField: "comments.authorId",
+          foreignField: "_id",
+          // select: "nom",
+          as: "comments.author",
+        },
+      },
+      // {
+      //   $group: {
+      //     _id: "$_id",
+      //     title: { $first: "$title" },
+      //     authors: { $push: "$authors" },
+      //     likesCount: { $sum: { $size: "$likes" } },
+      //     nbrUser: { $sum: { $size: "$authors" } },
+      //   },
+      // },
+      {
+        $addFields: {
+          // likesCount: { $size: "$likes" },
+          // likesObject: { $objectToArray: "$likes" },
+          "comments.authorName": { $arrayElemAt: ["$comments.author.nom", 0] },
+          // likesAuthors: { $size: "$likesAuthors" },
+        },
+      },
+      {
+        $group: {
+          _id: "$_id",
+          commentaire: { $first: "$commentaire" },
+
+          comments: { $push: "$comments" },
+        },
+      },
+      {
+        $project: {
+          commentaire: 1,
+          // likesCount: { $size: "$likesObject" },
+          comments: 1,
+          // likesCount: 1,
+          // likesAuthors: 1,
+          // "likes.AuthorId": 0,
+          // "likes.author": 0,
+        },
+      },
+    ]);
+
+    res.status(200).json(post[0]);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+}

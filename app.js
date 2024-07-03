@@ -4,6 +4,7 @@ import dotenv from "dotenv";
 import userRoute from "./route/userRoute.js";
 import postRoute from "./route/postRoute.js";
 import likeRoute from "./route/likeRoute.js";
+import commentRoute from "./route/CommentRoute.js";
 
 // read environment
 dotenv.config();
@@ -31,6 +32,7 @@ app.get("/", (req, res) => {
 app.use("/user", userRoute);
 app.use("/post", postRoute);
 app.use("/like", likeRoute);
+app.use("/comment", commentRoute);
 
 // config the server to listen
 app.listen(port, () => {
