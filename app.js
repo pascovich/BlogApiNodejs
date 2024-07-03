@@ -3,6 +3,7 @@ import mongoose from "mongoose";
 import dotenv from "dotenv";
 import userRoute from "./route/userRoute.js";
 import postRoute from "./route/postRoute.js";
+import likeRoute from "./route/likeRoute.js";
 
 // read environment
 dotenv.config();
@@ -29,6 +30,7 @@ app.get("/", (req, res) => {
 // use our routes
 app.use("/user", userRoute);
 app.use("/post", postRoute);
+app.use("/like", likeRoute);
 
 // config the server to listen
 app.listen(port, () => {
